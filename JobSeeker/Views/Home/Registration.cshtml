@@ -4,13 +4,33 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Job Seeker User Registration Form</h1>
+<h3>Job Seeker User Registration Form</h3>
 <hr />
 
 <div class="row">
-    <div class="col-md-9">
-        <form asp-action="Create">
-            <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="col-md-8">
+        @if (@ViewBag.Message!=null)
+        {
+            if (@ViewBag.Message == ResultStatus.Success)
+            {
+                <div class="text-success">You are register successfully </div>
+            }
+            if (@ViewBag.Message == ResultStatus.Failed)
+            {
+                <div class="text-danger">Registration Failed. Try again.</div>
+            }
+            if (@ViewBag.Message == ResultStatus.AlreadyExit)
+            {
+                <div class="text-danger">This Email address already registered with us. Try with another email address</div>
+            }
+        }
+        <form asp-action="Registration">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
             <div class="form-group">
                 <label asp-for="Email" class="control-label"></label>
                 <input asp-for="Email" class="form-control" />
@@ -28,21 +48,16 @@
             </div>
 
 
-            <div class="form-group">
-                <input type="submit" value="Register" class="btn btn-primary" />
+            <div class="form-group divpaddingregister">
+                <input type="submit" value="Register" class="btn btn-success" />
             </div>
-            <b>@ViewBag.Message</b>
+           
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
-}
-         
+    }

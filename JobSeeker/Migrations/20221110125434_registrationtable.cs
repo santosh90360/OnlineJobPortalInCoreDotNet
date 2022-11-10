@@ -20,16 +20,16 @@ namespace JobSeeker.Migrations
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Mobile = table.Column<long>(type: "bigint", nullable: false),
-                    Gender = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DOB = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Mobile = table.Column<long>(type: "bigint", nullable: true),
+                    Gender = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DOB = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserType = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     IsDelete = table.Column<bool>(type: "bit", nullable: false),
                     IsLocked = table.Column<bool>(type: "bit", nullable: false),
                     EntryDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    IPAddress = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    IPAddress = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {

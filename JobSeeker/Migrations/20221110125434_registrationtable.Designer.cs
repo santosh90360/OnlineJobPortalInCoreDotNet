@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace JobSeeker.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221110105223_registrationtable")]
+    [Migration("20221110125434_registrationtable")]
     partial class registrationtable
     {
         /// <inheritdoc />
@@ -34,7 +34,6 @@ namespace JobSeeker.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("DOB")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
@@ -45,11 +44,9 @@ namespace JobSeeker.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Gender")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("IPAddress")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsActive")
@@ -61,7 +58,7 @@ namespace JobSeeker.Migrations
                     b.Property<bool>("IsLocked")
                         .HasColumnType("bit");
 
-                    b.Property<long>("Mobile")
+                    b.Property<long?>("Mobile")
                         .HasColumnType("bigint");
 
                     b.Property<DateTime>("ModifiedDate")
