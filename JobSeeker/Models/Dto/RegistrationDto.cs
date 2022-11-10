@@ -14,6 +14,7 @@
         public bool? IsLocked { get; set; }
         public DateTime? EntryDate { get; set; }
         public DateTime? ModifiedDate { get; set; }
+        public string? ProfileImage { get; set; }
         public ResultStatus Result { get; set; }
 
     }

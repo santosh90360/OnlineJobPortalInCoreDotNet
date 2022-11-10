@@ -54,5 +54,36 @@ namespace JobSeeker.Repository.JobSeekerRepositories
             Registration register = await _db.Registrations.Where(x => x.Email == registrationDto.Email && x.Password==registrationDto.Password).FirstOrDefaultAsync();
             return _mapper.Map<RegistrationDto>(register);
         }
+        public async Task<RegistrationDto> UpdatePhoto(RegistrationDto registrationDto)
+        {
+            Registration registration = _mapper.Map<RegistrationDto, Registration>(registrationDto);           
+            registration.ModifiedDate = DateTime.Now;         
+            var user = await _db.Registrations.Where(u => u.Email == registrationDto.Email).FirstOrDefaultAsync();            
+            try
+            {
+                if (user.Id > 0)
+                {
+                    user.ProfileImage = registrationDto.ProfileImage;
+                    _db.Registrations.Update(user);
+                    await _db.SaveChangesAsync();
+                    registrationDto.Result = ResultStatus.Success;
+                }
+                else
+                {                   
+                    registrationDto.Result = ResultStatus.Failed;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                registrationDto.Result = ResultStatus.Failed;
+            }
+            return registrationDto;
+        }
+        public async Task<RegistrationDto> GetJobSeeker(RegistrationDto registrationDto)
+        {
+            Registration register = await _db.Registrations.Where(x => x.Email == registrationDto.Email).FirstOrDefaultAsync();
+            return _mapper.Map<RegistrationDto>(register);
+        }
     }
 }

@@ -17,6 +17,7 @@ namespace JobSeeker.Models
         public string? DOB { get; set; }
         [Required]
         public string UserType { get; set; }
+        public string? ProfileImage { get; set; }
         public bool IsActive { get; set; }
         public bool IsDelete { get; set; }
         public bool IsLocked { get; set; }
