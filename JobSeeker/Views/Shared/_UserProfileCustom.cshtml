@@ -1,0 +1,15 @@
+﻿@using JobSeeker.Models.Dto;
+
+
+<ul class="navbar-nav">
+    
+        <li class="nav-item">
+            <a class="nav-link" href="#">Hello @this.Context.Session.GetString("Email")</a>
+        </li>
+        <li class="nav-item">
+            <form id="logoutForm" method="post" class="form-inline" asp-controller="Account" asp-action="LogOff">
+                <button type="submit" class="btn nav-link">Logout</button>
+            </form>
+        </li>
+  
+</ul>

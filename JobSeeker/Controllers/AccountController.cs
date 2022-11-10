@@ -11,5 +11,11 @@ namespace JobSeeker.Controllers
             registrationDto.Email = this.HttpContext.Session.GetString("Email");
             return View(registrationDto);
         }
+
+        public async Task<IActionResult> LogOff()
+        {
+            this.HttpContext.Session.Clear();
+            return RedirectToAction("Login", "Home");
+        }
     }
 }
