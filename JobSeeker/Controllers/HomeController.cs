@@ -9,10 +9,10 @@ namespace JobSeeker.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-   
+
         private IJobSeekerRepository _repository;
-       
-        public HomeController(ILogger<HomeController> logger,IJobSeekerRepository jobSeekerRepository)
+
+        public HomeController(ILogger<HomeController> logger, IJobSeekerRepository jobSeekerRepository)
         {
             _logger = logger;
             _repository = jobSeekerRepository;
@@ -32,15 +32,32 @@ namespace JobSeeker.Controllers
             if (ModelState.IsValid)
             {
                 model.UserType = "JobSeeker";
-                var result= await _repository.CreateNewUser(model);
+                var result = await _repository.CreateNewUser(model);
                 ViewBag.Message = result.Result;
                 ModelState.Clear();
             }
             return View();
         }
-
+        [HttpGet]
         public IActionResult Login()
         {
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> Login(RegistrationDto registrationDto)
+        {
+            var user =await _repository.Login(registrationDto);
+            if (user != null &&  user.Id > 0)
+            {
+                HttpContext.Session.SetString("Email", user.Email);
+                HttpContext.Session.SetString("Name", user.Name);
+             
+                return RedirectToAction("Dashboard","Account");
+            }
+            else
+            {
+                ViewBag.Message = ResultStatus.InvalidCredntial;
+            }
             return View();
         }
 
