@@ -103,5 +103,37 @@ namespace JobSeeker.Controllers
             }
             return View();
         }
+        [HttpGet]
+        public async Task<IActionResult> Profile()
+        {
+
+            RegistrationDto registrationDto = new RegistrationDto();
+            registrationDto.Email = this.HttpContext.Session.GetString("Email");
+            registrationDto = await _repository.GetJobSeeker(registrationDto);
+            return View(registrationDto);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Profile(string email)
+        {
+            return RedirectToAction(nameof(ProfileEdit));
+        }
+        [HttpGet]
+        public async Task<IActionResult> ProfileEdit()
+        {
+
+            RegistrationDto registrationDto = new RegistrationDto();
+            registrationDto.Email = this.HttpContext.Session.GetString("Email");
+            registrationDto = await _repository.GetJobSeeker(registrationDto);
+            return View(registrationDto);
+        }
+        [HttpPost]
+        public async Task<IActionResult> ProfileEdit(RegistrationDto registrationDto)
+        { 
+            registrationDto.Email = this.HttpContext.Session.GetString("Email");
+            registrationDto = await _repository.UpdateProfileUser(registrationDto);
+            ViewBag.Message = registrationDto.Result;
+            return View(registrationDto);
+        }
     }
 }
