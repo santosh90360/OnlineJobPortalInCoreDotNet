@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using IHostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
 using JobSeeker.Repository.IJobSeekerRepositories;
+using System.ComponentModel.DataAnnotations;
 
 namespace JobSeeker.Controllers
 {
@@ -36,64 +37,69 @@ namespace JobSeeker.Controllers
         {
             return View();
         }
-        //[HttpPost]
-        //public async Task<IActionResult> ProfileImage(List<IFormFile> postedFiles)
-        //{
-        //    string wwwPath = this.Environment.WebRootPath;
-        //    string contentPath = this.Environment.ContentRootPath;
-
-        //    string path = Path.Combine(this.Environment.WebRootPath, @"images\profileimages");
-        //    if (!Directory.Exists(path))
-        //    {
-        //        Directory.CreateDirectory(path);
-        //    }
-
-        //    List<string> uploadedFiles = new List<string>();
-        //    foreach (IFormFile postedFile in postedFiles)
-        //    {
-        //        string fileName = Path.GetFileName(postedFile.FileName);
-        //        using (FileStream stream = new FileStream(Path.Combine(path, fileName), FileMode.Create))
-        //        {
-        //            postedFile.CopyTo(stream);
-        //            uploadedFiles.Add(fileName);
-        //            ViewBag.Message += string.Format("<b>{0}</b> uploaded.<br />", fileName);
-        //        }
-        //    }
-
-        //    return View();
-        //}
+        
         [HttpPost]        
         public async Task<IActionResult> ProfileImage(IFormFile formFile)
-        {
+        {            
             try
             {
-                string fileName = formFile.FileName;
-                fileName = Path.GetFileName(fileName);
-                RegistrationDto registrationDto = new RegistrationDto();
-                registrationDto.Email= this.HttpContext.Session.GetString("Email");
-                registrationDto.ProfileImage = "/images/profileimages/" + fileName;
-                var result=await _repository.UpdatePhoto(registrationDto);
-                if (result.Result == ResultStatus.Success)
+                if (formFile!=null && formFile.Length > 0)
                 {
-                    string uploadpath = Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot\images\profileimages", fileName);
-                    var stream = new FileStream(uploadpath, FileMode.Create);
-                    formFile.CopyToAsync(stream);
-                    ViewBag.Message = "Photo uploaded successfully.";
-                    var userAfterPhotoUploaded= await _repository.GetJobSeeker(registrationDto);
-                    if (userAfterPhotoUploaded != null && userAfterPhotoUploaded.Id > 0)
-                    {                       
-                        HttpContext.Session.SetString("ProfileImage", userAfterPhotoUploaded.ProfileImage);
+                    string profileImageName = formFile.FileName;
+                    profileImageName = Path.GetFileName(profileImageName);
+                    Guid guid = Guid.NewGuid();
+                    string newfileName = guid.ToString();
+                    string fileExtention = Path.GetExtension(formFile.FileName);
+                    
+                    if (formFile.ContentType != "image/png" && formFile.ContentType != "image/jpeg")
+                    {
+                        ViewBag.Message = ResultStatus.InvalidFileType;
+                        return View();                        
+                    }
+
+                    if (formFile.Length > 1000000)
+                    {
+                        ViewBag.Message = ResultStatus.MaxExceedFileSize;
+                        return View();
+                    }
+
+                    profileImageName = newfileName + fileExtention;
+
+                    RegistrationDto registrationDto = new RegistrationDto();
+                    registrationDto.Email = this.HttpContext.Session.GetString("Email");
+                    registrationDto.ProfileImage = SD.ProfileImagePath + profileImageName;
+                    //Upload image path in registration table
+                    var result = await _repository.UpdatePhoto(registrationDto);
+                    if (result.Result == ResultStatus.Success)
+                    {
+                        // Save file in wwwroot folder
+                        string uploadpath = Path.Combine(Directory.GetCurrentDirectory(), SD.ProfileImageRootPath, profileImageName);
+                        var stream = new FileStream(uploadpath, FileMode.Create);
+                        formFile.CopyToAsync(stream);
+                        ViewBag.Message = ResultStatus.Success;
+                        var userAfterPhotoUploaded = await _repository.GetJobSeeker(registrationDto);
+                        if (userAfterPhotoUploaded != null && userAfterPhotoUploaded.Id > 0)
+                        {
+                            HttpContext.Session.SetString("ProfileImage", userAfterPhotoUploaded.ProfileImage);
+                            return View();
+                        }
+                    }
+                    else
+                    {
+                        ViewBag.Message = "Photo does not upload successfully. Try again";
                         return View();
                     }
                 }
                 else
                 {
-                    ViewBag.Message = "Photo does not upload successfully. Try again";
-                }               
+                    ViewBag.Message = ResultStatus.IsNull;
+                    return View();
+                }
             }
             catch
             {
                 ViewBag.Message = "Error while uploading the profile photo.";
+                return View();
             }
             return View();
         }

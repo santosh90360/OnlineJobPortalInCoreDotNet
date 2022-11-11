@@ -51,7 +51,14 @@ namespace JobSeeker.Controllers
             {
                 HttpContext.Session.SetString("Email", user.Email);
                 HttpContext.Session.SetString("Name", user.Name);
-                HttpContext.Session.SetString("ProfileImage", user.ProfileImage);
+                if (user.ProfileImage != null)
+                {
+                    HttpContext.Session.SetString("ProfileImage", user.ProfileImage);
+                }
+                else
+                {
+                    HttpContext.Session.SetString("ProfileImage", SD.BlankImagePath);
+                }
              
                 return RedirectToAction("Dashboard","Account");
             }
