@@ -10,7 +10,8 @@ namespace JobSeeker
         {
             var mappingConfig = new MapperConfiguration(config =>
             {
-                config.CreateMap<RegistrationDto, Registration>().ReverseMap();               
+                config.CreateMap<RegistrationDto, Registration>().ReverseMap();
+                config.CreateMap<SkillDto, Skill>().ReverseMap();
             });
             return mappingConfig;
         }

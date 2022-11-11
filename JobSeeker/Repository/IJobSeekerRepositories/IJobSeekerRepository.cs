@@ -9,5 +9,7 @@ namespace JobSeeker.Repository.IJobSeekerRepositories
         Task<RegistrationDto> Login(RegistrationDto registrationDto);
         Task<RegistrationDto> UpdatePhoto(RegistrationDto registrationDto);
         Task<RegistrationDto> GetJobSeeker(RegistrationDto registrationDto);
+        Task<SkillDto> AddSkills(SkillDto skillDto);
+        Task<IEnumerable<SkillDto>> GetSkills(int userId); 
     }
 }

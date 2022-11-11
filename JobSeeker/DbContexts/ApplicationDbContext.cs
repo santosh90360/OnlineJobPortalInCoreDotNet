@@ -10,5 +10,6 @@ namespace JobSeeker.DbContexts
 
         }
         public DbSet<Registration> Registrations { get; set; }
+        public DbSet<Skill> Skills { get; set; }
     }
 }

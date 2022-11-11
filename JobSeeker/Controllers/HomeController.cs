@@ -51,6 +51,7 @@ namespace JobSeeker.Controllers
             {
                 HttpContext.Session.SetString("Email", user.Email);
                 HttpContext.Session.SetString("Name", user.Name);
+                HttpContext.Session.SetInt32("UserId", Convert.ToInt32(user.Id));
                 if (user.ProfileImage != null)
                 {
                     HttpContext.Session.SetString("ProfileImage", user.ProfileImage);

@@ -14,7 +14,7 @@ namespace JobSeeker.Controllers
         private IHostingEnvironment Environment;
         private IJobSeekerRepository _repository;
 
-       
+
         public AccountController(IHostingEnvironment _environment, IJobSeekerRepository jobSeekerRepository)
         {
             Environment = _environment;
@@ -37,24 +37,24 @@ namespace JobSeeker.Controllers
         {
             return View();
         }
-        
-        [HttpPost]        
+
+        [HttpPost]
         public async Task<IActionResult> ProfileImage(IFormFile formFile)
-        {            
+        {
             try
             {
-                if (formFile!=null && formFile.Length > 0)
+                if (formFile != null && formFile.Length > 0)
                 {
                     string profileImageName = formFile.FileName;
                     profileImageName = Path.GetFileName(profileImageName);
                     Guid guid = Guid.NewGuid();
                     string newfileName = guid.ToString();
                     string fileExtention = Path.GetExtension(formFile.FileName);
-                    
+
                     if (formFile.ContentType != "image/png" && formFile.ContentType != "image/jpeg")
                     {
                         ViewBag.Message = ResultStatus.InvalidFileType;
-                        return View();                        
+                        return View();
                     }
 
                     if (formFile.Length > 1000000)
@@ -129,11 +129,33 @@ namespace JobSeeker.Controllers
         }
         [HttpPost]
         public async Task<IActionResult> ProfileEdit(RegistrationDto registrationDto)
-        { 
+        {
             registrationDto.Email = this.HttpContext.Session.GetString("Email");
             registrationDto = await _repository.UpdateProfileUser(registrationDto);
             ViewBag.Message = registrationDto.Result;
             return View(registrationDto);
+        }
+        [HttpGet]
+        public async Task<IActionResult> AddSkills()
+        {
+            SkillDto skillDto = new SkillDto();
+            skillDto.UserId = Convert.ToInt32(this.HttpContext.Session.GetInt32("UserId"));  
+            var skills = await _repository.GetSkills(skillDto.UserId);
+            skillDto.Skills = skills.ToList();
+            return View(skillDto);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddSkills(SkillDto skillDto)
+        {
+            SkillDto resultDto = new SkillDto();
+            skillDto.UserId = Convert.ToInt32(this.HttpContext.Session.GetInt32("UserId"));
+            skillDto = await _repository.AddSkills(skillDto);
+            ViewBag.Message = skillDto.Result;            
+            var skills =await _repository.GetSkills(skillDto.UserId);
+            ModelState.Clear();
+            resultDto.Skills = skills.ToList();            
+            return View(resultDto);
         }
     }
 }

@@ -60,12 +60,12 @@ namespace JobSeeker.Repository.JobSeekerRepositories
             try
             {
                 if (user != null && user.Id > 0)
-                {    
-                    user.ModifiedDate=DateTime.Now;
+                {
+                    user.ModifiedDate = DateTime.Now;
                     user.Mobile = registration.Mobile;
                     user.Gender = registration.Gender;
                     user.MaritalStatus = registration.MaritalStatus;
-                    user.DOB= registration.DOB;
+                    user.DOB = registration.DOB;
                     _db.Registrations.Update(user);
                     await _db.SaveChangesAsync();
                     registrationDto.Result = ResultStatus.Success;
@@ -117,6 +117,39 @@ namespace JobSeeker.Repository.JobSeekerRepositories
         {
             Registration register = await _db.Registrations.Where(x => x.Email == registrationDto.Email).FirstOrDefaultAsync();
             return _mapper.Map<RegistrationDto>(register);
+        }
+        public async Task<SkillDto> AddSkills(SkillDto skillDto)
+        {
+            Skill skill = _mapper.Map<SkillDto, Skill>(skillDto);
+            skill.EntryDate = DateTime.Now;
+            skill.ModifiedDate = DateTime.Now;
+            var user = await _db.Skills.Where(u => u.Id == skillDto.Id && u.UserId == skillDto.UserId).FirstOrDefaultAsync();
+            try
+            {
+                if (user != null && user.Id > 0)
+                {
+                    skillDto.Result = ResultStatus.AlreadyExit;
+                }
+                else
+                {
+                    _db.Skills.Add(skill);
+                    await _db.SaveChangesAsync();
+                    skillDto.Result = ResultStatus.Success;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                skillDto.Result = ResultStatus.Failed;
+            }
+            return skillDto;
+        }
+        public async Task<IEnumerable<SkillDto>> GetSkills(int userId)
+        {
+            List<Skill> skills = new List<Skill>();
+            SkillDto skillDto = new SkillDto();
+            skills = await _db.Skills.Where(x => x.UserId == userId).ToListAsync();
+            return _mapper.Map<IEnumerable<SkillDto>>(skills);
         }
     }
 }
