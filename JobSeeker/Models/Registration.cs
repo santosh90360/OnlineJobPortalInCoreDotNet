@@ -16,7 +16,7 @@ namespace JobSeeker.Models
         public string? Gender { get; set; }
         public string? DOB { get; set; }
         [Required]
-        public string UserType { get; set; }
+        public UserTypeEnum? UserType { get; set; }
         public string? ProfileImage { get; set; }
         public string? MaritalStatus { get; set; }
         public bool IsActive { get; set; }

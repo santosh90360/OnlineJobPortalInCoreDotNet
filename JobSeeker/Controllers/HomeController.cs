@@ -30,8 +30,8 @@ namespace JobSeeker.Controllers
         public async Task<IActionResult> Registration(RegistrationDto model)
         {
             if (ModelState.IsValid)
-            {
-                model.UserType = "JobSeeker";
+            {             
+                model.UserType = UserTypeEnum.JobSeeker;
                 var result = await _repository.CreateNewUser(model);
                 ViewBag.Message = result.Result;
                 ModelState.Clear();
@@ -60,8 +60,20 @@ namespace JobSeeker.Controllers
                 {
                     HttpContext.Session.SetString("ProfileImage", SD.BlankImagePath);
                 }
-             
-                return RedirectToAction("Dashboard","Account");
+                if (user.UserType ==UserTypeEnum.Admin)
+                {
+                    return RedirectToAction("Dashboard", "AdminAccount");
+                }
+                if (user.UserType == UserTypeEnum.JobSeeker)
+                {
+                    return RedirectToAction("Dashboard", "Account");
+                }
+                if (user.UserType == UserTypeEnum.Company)
+                {
+                    return RedirectToAction("Dashboard", "CompanyAccount");
+                }
+
+
             }
             else
             {

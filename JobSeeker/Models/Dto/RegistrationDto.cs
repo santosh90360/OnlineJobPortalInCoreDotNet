@@ -10,7 +10,7 @@
         public Int64? Mobile { get; set; }
         public string? Gender { get; set; }
         public string? DOB { get; set; }
-        public string? UserType { get; set; }
+        public UserTypeEnum? UserType { get; set; }
         public bool? IsActive { get; set; }
         public bool? IsDelete { get; set; }
         public bool? IsLocked { get; set; }
