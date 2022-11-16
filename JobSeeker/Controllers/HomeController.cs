@@ -62,7 +62,7 @@ namespace JobSeeker.Controllers
                 }
                 if (user.UserType ==UserTypeEnum.Admin)
                 {
-                    return RedirectToAction("Dashboard", "AdminAccount");
+                    return RedirectToAction("Index", "AdminUser");
                 }
                 if (user.UserType == UserTypeEnum.JobSeeker)
                 {

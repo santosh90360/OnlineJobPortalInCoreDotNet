@@ -2,8 +2,10 @@ using AutoMapper;
 using JobSeeker;
 using JobSeeker.DbContexts;
 using JobSeeker.Repository.IJobSeekerRepositories;
+using JobSeeker.Repository.JobRepository;
 using JobSeeker.Repository.JobSeekerRepositories;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.JSInterop;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +16,7 @@ IMapper mapper = MappingConfig.RegisterMaps().CreateMapper();
 builder.Services.AddSingleton(mapper);
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddScoped<IJobSeekerRepository, JobSeekerRepository>();
+builder.Services.AddScoped<IJobRepository, JobRepository>();
 // add
 builder.Services.AddDbContext<ApplicationDbContext>(
     options => options.UseSqlServer(

@@ -12,6 +12,7 @@ namespace JobSeeker
             {
                 config.CreateMap<RegistrationDto, Registration>().ReverseMap();
                 config.CreateMap<SkillDto, Skill>().ReverseMap();
+                config.CreateMap<JobDto, Job>().ReverseMap();
             });
             return mappingConfig;
         }

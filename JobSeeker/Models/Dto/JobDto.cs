@@ -27,6 +27,7 @@ namespace JobSeeker.Models
         public DateTime EntryDate { get; set; }
         public DateTime ModifiedDate { get; set; }
         public string? IPAddress { get; set; }
+        public ResultStatus Result { get; set; }
 
     }
 }
