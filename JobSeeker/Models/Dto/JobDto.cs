@@ -8,17 +8,22 @@ namespace JobSeeker.Models
         [Required]
         public string Email { get; set; }
         [Required]
+        [Display(Name = "Job Title")]
         public string JobTitle { get; set; }
         [Required]
         public string Location { get; set; }
+        [Display(Name = "Job Type")]
         public string JobType { get; set; }
         public string Category { get; set; }
+        [Display(Name = "Job Tags")]
         public string? JobTags { get; set; }
         public DateTime? StartDate { get; set; }
         public DateTime? ClosingDate { get; set; }
         public DateTime? ExtendedDate { get; set; }
+        [Display(Name = "Company Name")]
         public string CompanyName { get; set; }
         public string Website { get; set; }
+        [Display(Name = "Job Description")]
         public string JobDescription { get; set; }
         public string? TwitterUsername { get; set; }
         public string? Logo { get; set; }        

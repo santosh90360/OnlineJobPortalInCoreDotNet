@@ -154,6 +154,14 @@ namespace JobSeeker.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        public async Task<IActionResult> Dashboard()
+        {
+            return View();
+        }
+        public async Task<IActionResult> Profile()
+        {
+            return View();
+        }
         private async Task<bool> JobDtoExists(int id)
         {
             return await _jobRepository.CheckJob(id);
