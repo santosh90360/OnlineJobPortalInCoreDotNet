@@ -38,7 +38,7 @@ namespace JobSeeker.Repository.JobRepository
                     jobDetail.CompanyName = jobDto.CompanyName;
                     jobDetail.Website = jobDto.Website;
                     jobDetail.TwitterUsername = jobDto.TwitterUsername; 
-                    _db.Update(jobDetail);
+                    _db.Jobs.Update(jobDetail);
                 }
                 else
                 {

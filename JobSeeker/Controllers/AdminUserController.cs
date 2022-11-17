@@ -111,7 +111,7 @@ namespace JobSeeker.Controllers
             {
                 try
                 {
-                   _jobRepository.CreateUpdateJob(jobDto);                   
+                   await _jobRepository.CreateUpdateJob(jobDto);                   
                 }
                 catch (Exception ex)
                 {
