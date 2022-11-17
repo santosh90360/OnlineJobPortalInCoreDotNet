@@ -118,6 +118,16 @@ namespace JobSeeker.Controllers
             return View(jobDto);
         }
 
+        [HttpGet]
+        [Route("job-page")]
+        public async Task<IActionResult> JobDetail()
+        {
+            JobDto jobDto = new JobDto();
+            var jobs = await _repository.GetAllJobs();
+            jobDto.JobList = jobs.ToList();
+            return View(jobDto);
+        }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
