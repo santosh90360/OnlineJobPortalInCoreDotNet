@@ -25,10 +25,20 @@ namespace JobSeeker.Repository.JobRepository
             {
                 if (jobDetail != null && jobDetail.Id > 0)
                 {
-                    job.ModifiedDate = DateTime.Now;
-                    job.IsDelete = false;
-                    job.IsActive = true;
-                    _db.Update(job);
+                    jobDetail.JobTitle=jobDto.JobTitle;
+                    jobDetail.JobDescription=jobDto.JobDescription;
+                    jobDetail.Category = jobDto.Category;
+                    jobDetail.JobType = jobDto.JobType;
+                    jobDetail.Email = jobDto.Email;
+                    jobDetail.JobTags = jobDto.JobTags;
+                    jobDetail.Location = jobDto.Location;
+                    jobDetail.StartDate = jobDto.StartDate;
+                    jobDetail.EntryDate = jobDto.EntryDate;
+                    jobDetail.ExtendedDate = jobDto.ExtendedDate;
+                    jobDetail.CompanyName = jobDto.CompanyName;
+                    jobDetail.Website = jobDto.Website;
+                    jobDetail.TwitterUsername = jobDto.TwitterUsername; 
+                    _db.Update(jobDetail);
                 }
                 else
                 {

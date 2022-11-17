@@ -11,9 +11,12 @@ using JobSeeker.Repository.IJobSeekerRepositories;
 using JobSeeker.Repository.JobRepository;
 using JobSeeker.Models.Dto;
 using NuGet.Protocol.Core.Types;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
 
 namespace JobSeeker.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class AdminUserController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -25,7 +28,7 @@ namespace JobSeeker.Controllers
             _jobRepository = jobRepository;
             _repository = repository;
         }
-        // GET: AdminUser
+        // GET: AdminUser        
         public async Task<IActionResult> Index()
         {
             string email = this.HttpContext.Session.GetString("Email");

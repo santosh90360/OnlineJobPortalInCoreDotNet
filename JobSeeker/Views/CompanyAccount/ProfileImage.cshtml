@@ -1,7 +1,7 @@
 ﻿@model JobSeeker.Models.Dto.RegistrationDto
 @{
     ViewData["Title"] = "View";
-    Layout = "~/Views/Shared/_LayoutAdminAccount.cshtml";
+    Layout = "~/Views/Shared/_LayoutCompanyAccount.cshtml";
 }
 <div class="row">
   <div class="col-md-8">
@@ -29,7 +29,7 @@
             }
         }
      <div class="form-group">
-@using (Html.BeginForm("ProfileImage", "AdminUser", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+@using (Html.BeginForm("ProfileImage", "CompanyAccount", FormMethod.Post, new { @enctype = "multipart/form-data" }))
 {
     <div class="text-center">
         <h1 class="font-weight-bold">Upload File</h1>       

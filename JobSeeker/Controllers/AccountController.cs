@@ -6,9 +6,12 @@ using Microsoft.AspNetCore.Http;
 using IHostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
 using JobSeeker.Repository.IJobSeekerRepositories;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
 
 namespace JobSeeker.Controllers
 {
+    [Authorize(Roles = "JobSeeker")]
     public class AccountController : Controller
     {
         private IHostingEnvironment Environment;
@@ -19,7 +22,7 @@ namespace JobSeeker.Controllers
         {
             Environment = _environment;
             _repository = jobSeekerRepository;
-        }
+        }       
         public IActionResult Dashboard()
         {
             RegistrationDto registrationDto = new RegistrationDto();
@@ -32,6 +35,7 @@ namespace JobSeeker.Controllers
             this.HttpContext.Session.Clear();
             return RedirectToAction("Login", "Home");
         }
+        
         [HttpGet]
         public async Task<IActionResult> ProfileImage()
         {

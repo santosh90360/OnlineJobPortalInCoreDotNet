@@ -1,11 +1,16 @@
 ﻿using JobSeeker.Models.Dto;
 using JobSeeker.Repository.IJobSeekerRepositories;
 using JobSeeker.Repository.JobRepository;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NuGet.Protocol.Core.Types;
+using System.Data;
 
 namespace JobSeeker.Controllers
 {
+    [Authorize(Roles = "Company")]
     public class CompanyAccountController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -16,7 +21,7 @@ namespace JobSeeker.Controllers
             _logger = logger;
             _jobRepository = jobRepository;
             _repository = repository;
-        }
+        }      
         public IActionResult Dashboard()
         {
             return View();
@@ -24,6 +29,7 @@ namespace JobSeeker.Controllers
         public async Task<IActionResult> LogOff()
         {
             this.HttpContext.Session.Clear();
+            var login = HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction("Login", "Home");
         }
         [HttpGet]

@@ -1,8 +1,11 @@
 ﻿using JobSeeker.Models;
 using JobSeeker.Models.Dto;
 using JobSeeker.Repository.IJobSeekerRepositories;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using System.Security.Claims;
 
 namespace JobSeeker.Controllers
 {
@@ -54,6 +57,7 @@ namespace JobSeeker.Controllers
                 HttpContext.Session.SetString("Email", user.Email);
                 HttpContext.Session.SetString("Name", user.Name);
                 HttpContext.Session.SetInt32("UserId", Convert.ToInt32(user.Id));
+
                 if (user.ProfileImage != null)
                 {
                     HttpContext.Session.SetString("ProfileImage", user.ProfileImage);
@@ -62,6 +66,27 @@ namespace JobSeeker.Controllers
                 {
                     HttpContext.Session.SetString("ProfileImage", SD.BlankImagePath);
                 }
+
+                //Check the user name and password  
+                //Here can be implemented checking logic from the database  
+                ClaimsIdentity identity = null;
+                bool isAuthenticated = false;
+                identity = new ClaimsIdentity(new[] {
+                    new Claim(ClaimTypes.Name, user.Email),
+                    new Claim(ClaimTypes.Role, user.UserType.Value.ToString())
+                }, CookieAuthenticationDefaults.AuthenticationScheme);
+
+                isAuthenticated = true;
+
+                if (isAuthenticated)
+                {
+                    var principal = new ClaimsPrincipal(identity);
+
+                    var login = HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
+
+                    //return RedirectToAction("Index", "Home");
+                }
+
                 if (user.UserType ==UserTypeEnum.Admin)
                 {
                     return RedirectToAction("Index", "AdminUser");
