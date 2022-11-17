@@ -1,0 +1,80 @@
+﻿@model JobSeeker.Models.Dto.RegistrationDto
+
+@{
+    ViewData["Title"] = "ProfileEdit";
+    Layout = "~/Views/Shared/_LayoutAdminAccount.cshtml";
+}
+
+<h3>Basic detail</h3>
+<hr />
+
+<div class="row">
+    <div class="col-md-8">
+        @if (@ViewBag.Message != null)
+        {
+            if (@ViewBag.Message == ResultStatus.Success)
+            {
+                <div class="text-success">Detail updated successfully </div>
+            }
+            if (@ViewBag.Message == ResultStatus.Failed)
+            {
+                <div class="text-danger">Update Failed. Try again.</div>
+            }
+            if (@ViewBag.Message == ResultStatus.RecordNotFound)
+            {
+                <div class="text-danger">Invalid Detail. Try again.</div>
+            }
+        }
+        <form asp-action="ProfileEdit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" readonly="readonly" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Mobile" class="control-label"></label>
+                <input asp-for="Mobile" class="form-control" type="number" />
+                <span asp-validation-for="DOB" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DOB" class="control-label"></label>
+                <input asp-for="DOB" class="form-control" type="datetime" />
+                <span asp-validation-for="DOB" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Gender" class="control-label"></label>
+                <input type="radio" name="Gender" value="M" />Male
+                <input type="radio" name="Gender" value="F" />Female
+                <span asp-validation-for="Gender" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="MaritalStatus" class="control-label"></label>
+                <select asp-for="MaritalStatus">
+                    <option selected disabled>Select Marital Status</option>
+                    <option>Married</option>
+                    <option>Unmarried</option>
+                </select>
+
+                <span asp-validation-for="MaritalStatus" class="text-danger"></span>
+            </div>
+
+            <div class="form-group divpaddingregister">
+                <input type="submit" value="Update" class="btn btn-success" />
+            </div>
+
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }
