@@ -93,8 +93,6 @@ namespace JobSeeker.DbContexts
                 Name = "Freelance"
 
             });
-        }
-
-        public DbSet<JobSeeker.Models.JobDto> JobDto { get; set; }
+        }       
     }
 }

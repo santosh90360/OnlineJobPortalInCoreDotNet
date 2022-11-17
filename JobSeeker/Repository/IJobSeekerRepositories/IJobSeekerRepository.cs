@@ -1,4 +1,5 @@
-﻿using JobSeeker.Models.Dto;
+﻿using JobSeeker.Models;
+using JobSeeker.Models.Dto;
 
 namespace JobSeeker.Repository.IJobSeekerRepositories
 {
@@ -10,6 +11,8 @@ namespace JobSeeker.Repository.IJobSeekerRepositories
         Task<RegistrationDto> UpdatePhoto(RegistrationDto registrationDto);
         Task<RegistrationDto> GetJobSeeker(RegistrationDto registrationDto);
         Task<SkillDto> AddSkills(SkillDto skillDto);
-        Task<IEnumerable<SkillDto>> GetSkills(int userId); 
+        Task<IEnumerable<SkillDto>> GetSkills(int userId);
+        Task<IEnumerable<JobDto>> GetJobs(JobDto jobDto);
+        Task<IEnumerable<JobDto>> GetAllJobs();
     }
 }

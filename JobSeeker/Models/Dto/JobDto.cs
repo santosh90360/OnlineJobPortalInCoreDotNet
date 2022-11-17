@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace JobSeeker.Models
+namespace JobSeeker.Models.Dto
 {
     public class JobDto
     {       
@@ -14,6 +14,8 @@ namespace JobSeeker.Models
         public string Location { get; set; }
         [Display(Name = "Job Type")]
         public string JobType { get; set; }
+        public float? Salary { get; set; }
+        public string? Experience { get; set; }
         public string Category { get; set; }
         [Display(Name = "Job Tags")]
         public string? JobTags { get; set; }
@@ -33,6 +35,7 @@ namespace JobSeeker.Models
         public DateTime ModifiedDate { get; set; }
         public string? IPAddress { get; set; }
         public ResultStatus Result { get; set; }
+        public List<JobDto> JobList { get; set; }
 
     }
 }

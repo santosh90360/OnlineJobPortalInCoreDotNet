@@ -15,6 +15,8 @@ namespace JobSeeker.Models
         public string JobType { get; set; }
         public string Category { get; set; }
         public string? JobTags { get; set; }
+        public float? Salary { get; set; }
+        public string? Experience { get; set; }
         public DateTime? StartDate { get; set; }
         public DateTime? ClosingDate { get; set; }
         public DateTime? ExtendedDate { get; set; }

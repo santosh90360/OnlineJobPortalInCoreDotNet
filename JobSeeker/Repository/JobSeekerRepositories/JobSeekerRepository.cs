@@ -151,5 +151,22 @@ namespace JobSeeker.Repository.JobSeekerRepositories
             skills = await _db.Skills.Where(x => x.UserId == userId).ToListAsync();
             return _mapper.Map<IEnumerable<SkillDto>>(skills);
         }
+
+        #region "Job Detail"
+
+        public async Task<IEnumerable<JobDto>> GetJobs(JobDto jobDto)
+        {
+            List<Job> job = await _db.Jobs.Where(x => x.Email.Contains(jobDto.Email) || 
+            x.JobDescription.Contains(jobDto.JobDescription) || x.JobTitle.Contains(jobDto.JobTitle)).ToListAsync();
+            return _mapper.Map<List<JobDto>>(job);
+        }
+        public async Task<IEnumerable<JobDto>> GetAllJobs()
+        {
+            List<Job> job = await _db.Jobs.ToListAsync();
+            return _mapper.Map<List<JobDto>>(job);
+        }
+
+
+        #endregion   
     }
 }

@@ -112,7 +112,10 @@ namespace JobSeeker.Controllers
         [Route("browse-jobs")]
         public async Task<IActionResult> JobList()
         {
-            return View();
+            JobDto jobDto = new JobDto();            
+            var jobs = await _repository.GetAllJobs();
+            jobDto.JobList = jobs.ToList();
+            return View(jobDto);
         }
 
 
