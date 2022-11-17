@@ -108,6 +108,13 @@ namespace JobSeeker.Controllers
             }
             return View();
         }
+        [HttpGet]
+        [Route("browse-jobs")]
+        public async Task<IActionResult> JobList()
+        {
+            return View();
+        }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
