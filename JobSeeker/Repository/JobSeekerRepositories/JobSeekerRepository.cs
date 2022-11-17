@@ -153,7 +153,11 @@ namespace JobSeeker.Repository.JobSeekerRepositories
         }
 
         #region "Job Detail"
-
+        public async Task<JobDto> GetJob(int id)
+        {
+            Job job = await _db.Jobs.Where(x => x.Id == id).FirstOrDefaultAsync();
+            return _mapper.Map<JobDto>(job);
+        }
         public async Task<IEnumerable<JobDto>> GetJobs(JobDto jobDto)
         {
             List<Job> job = await _db.Jobs.Where(x => x.Email.Contains(jobDto.Email) || 

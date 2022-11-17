@@ -118,13 +118,16 @@ namespace JobSeeker.Controllers
             return View(jobDto);
         }
 
-        [HttpGet]
-        [Route("job-page")]
-        public async Task<IActionResult> JobDetail()
+        [HttpGet]       
+        public async Task<IActionResult> JobDetail(int? id)
         {
+            if (id == null)
+            {
+                return NotFound();
+            }
             JobDto jobDto = new JobDto();
-            var jobs = await _repository.GetAllJobs();
-            jobDto.JobList = jobs.ToList();
+            var jobs = await _repository.GetJob(Convert.ToInt32(id));
+            jobDto = jobs;
             return View(jobDto);
         }
 

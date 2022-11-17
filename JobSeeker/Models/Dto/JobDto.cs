@@ -24,6 +24,7 @@ namespace JobSeeker.Models.Dto
         public DateTime? ExtendedDate { get; set; }
         [Display(Name = "Company Name")]
         public string CompanyName { get; set; }
+        public string? AboutCompany { get; set; }
         public string Website { get; set; }
         [Display(Name = "Job Description")]
         public string JobDescription { get; set; }

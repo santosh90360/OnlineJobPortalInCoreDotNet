@@ -1,8 +1,12 @@
 ﻿@model JobSeeker.Models.Dto.JobDto
 @{
-    ViewData["Title"] = "JobDetail";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+	ViewData["Title"] = "JobDetail";
+	Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<link rel="stylesheet" href="/newdesign/css/style.css">
+<link rel="stylesheet" href="/newdesign/css/colors/green.css" id="colors">
+<!-- Titlebar
+================================================== -->
 
 <div class="container">
 
@@ -12,44 +16,28 @@
 
 			<!-- Company Info -->
 			<div class="company-info">
-				<img src="images/company-logo.png" alt="">
+				<img src="/newdesign/images/company-logo.png" alt="">
 				<div class="content">
-					<h4>King LLC</h4>
-					<span><a href="#"><i class="fa fa-link"></i> Website</a></span>
-					<span><a href="#"><i class="fa fa-twitter"></i> @@kingrestaurants</a></span>
+					<h4>@Model.CompanyName</h4>
+					<span><a href="#"><i class="fa fa-link"></i> @Model.Website</a></span>
+					<span><a href="#"><i class="fa fa-email"></i> @Model.Email</a></span>
 				</div>
 				<div class="clearfix"></div>
 			</div>
 
 			<p class="margin-reset">
-				The Food Service Specialist ensures outstanding customer service is provided to food customers and that all food offerings meet the required stock levels and presentation standards. Beginning your career as a Food Steward will give you a strong foundation in Speedway’s food segment that can make you a vital member of the front line team!
+				<h3>About Company</h3>
+				@Model.AboutCompany
 			</p>
 
 			<br>
-			<p>The <strong>Food Service Specialist</strong> will have responsibilities that include:</p>
-
-			<ul class="list-1">
-				<li>
-					Executing the Food Service program, including preparing and presenting our wonderful food offerings
-					to hungry customers on the go!
-				</li>
-				<li>Greeting customers in a friendly manner and suggestive selling and sampling items to help increase sales.</li>
-				<li>
-					Keeping our Store food area looking terrific and ready for our valued customers by managing product
-					inventory, stocking, cleaning, etc.
-				</li>
-				<li>We’re looking for associates who enjoy interacting with people and working in a fast-paced environment!</li>
-			</ul>
-
+			
 			<br>
 
 			<h4 class="margin-bottom-10">Job Requirment</h4>
 
 			<ul class="list-1">
-				<li>Excellent customer service skills, communication skills, and a happy, smiling attitude are essential.</li>
-				<li>Must be available to work required shifts including weekends, evenings and holidays.</li>
-				<li>Must be able to perform repeated bending, standing and reaching.</li>
-				<li> Must be able to occasionally lift up to 50 pounds</li>
+				<li>@Model.JobDescription</li>				
 			</ul>
 
 		</div>
@@ -70,28 +58,28 @@
 						<i class="fa fa-map-marker"></i>
 						<div>
 							<strong>Location:</strong>
-							<span>20180 Outer Dr Dearborn, MI 48124</span>
+							<span>@Model.Location</span>
 						</div>
 					</li>
 					<li>
 						<i class="fa fa-user"></i>
 						<div>
 							<strong>Job Title:</strong>
-							<span>Food Service Specialist</span>
+							<span>@Model.JobTitle</span>
 						</div>
 					</li>
 					<li>
 						<i class="fa fa-clock-o"></i>
 						<div>
-							<strong>Hours:</strong>
-							<span>40h / week</span>
+							<strong>Experience:</strong>
+							<span>@Model.Experience</span>
 						</div>
 					</li>
 					<li>
 						<i class="fa fa-money"></i>
 						<div>
-							<strong>Rate:</strong>
-							<span>$9.50 - $12.50 / hour</span>
+							<strong>Budget/Salary:</strong>
+							<span>Rs @Model.Salary / Year</span>
 						</div>
 					</li>
 				</ul>
@@ -135,6 +123,32 @@
 	</div>
 	<!-- Widgets / End -->
 
-
 </div>
 
+
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <!-- Scripts
+    ================================================== -->
+<script src="/newdesign/scripts/jquery-2.1.3.min.js"></script>
+    <script src="/newdesign/scripts/custom.js"></script>
+    <script src="/newdesign/scripts/jquery.superfish.js"></script>
+    <script src="/newdesign/scripts/jquery.themepunch.tools.min.js"></script>
+    <script src="/newdesign/scripts/jquery.themepunch.revolution.min.js"></script>
+    <script src="/newdesign/scripts/jquery.themepunch.showbizpro.min.js"></script>
+    <script src="/newdesign/scripts/jquery.flexslider-min.js"></script>
+    <script src="/newdesign/scripts/chosen.jquery.min.js"></script>
+    <script src="/newdesign/scripts/jquery.magnific-popup.min.js"></script>
+    <script src="/newdesign/scripts/waypoints.min.js"></script>
+    <script src="/newdesign/scripts/jquery.counterup.min.js"></script>
+    <script src="/newdesign/scripts/jquery.jpanelmenu.js"></script>
+    <script src="/newdesign/scripts/stacktable.js"></script>
+    <script src="/newdesign/scripts/headroom.min.js"></script>
+
+
+    <!-- Style Switcher
+    ================================================== -->
+<script src="/newdesign/scripts/switcher.js"></script>

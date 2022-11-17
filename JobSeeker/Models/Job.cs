@@ -21,6 +21,7 @@ namespace JobSeeker.Models
         public DateTime? ClosingDate { get; set; }
         public DateTime? ExtendedDate { get; set; }
         public string CompanyName { get; set; }
+        public string? AboutCompany { get; set; }
         public string Website { get; set; }
         public string JobDescription { get; set; }
         public string? TwitterUsername { get; set; }

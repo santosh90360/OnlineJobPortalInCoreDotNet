@@ -12,6 +12,7 @@ namespace JobSeeker.Repository.IJobSeekerRepositories
         Task<RegistrationDto> GetJobSeeker(RegistrationDto registrationDto);
         Task<SkillDto> AddSkills(SkillDto skillDto);
         Task<IEnumerable<SkillDto>> GetSkills(int userId);
+        Task<JobDto> GetJob(int id);
         Task<IEnumerable<JobDto>> GetJobs(JobDto jobDto);
         Task<IEnumerable<JobDto>> GetAllJobs();
     }

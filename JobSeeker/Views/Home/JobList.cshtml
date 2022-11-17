@@ -21,7 +21,7 @@
 					@foreach (var job in Model.JobList)
 					{
 						<li>
-							<a href="job-page.html">
+							<a asp-action="JobDetail" asp-route-id="@job.Id">
 								@*<img src="images/job-list-logo-01.png" alt="">*@
 								<b style="padding:10px">@job.CompanyName</b>
 								<div class="job-list-content">
