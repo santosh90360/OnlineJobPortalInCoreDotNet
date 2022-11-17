@@ -19,6 +19,7 @@
         public string? ProfileImage { get; set; }
         public string? MaritalStatus { get; set; }
         public ResultStatus Result { get; set; }
+        public List<UserType>? UserTypes { get; set; }
 
     }
 }

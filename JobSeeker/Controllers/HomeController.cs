@@ -24,19 +24,21 @@ namespace JobSeeker.Controllers
         [HttpGet]
         public IActionResult Registration()
         {
-            return View();
+            RegistrationDto registrationDto= new RegistrationDto();
+            registrationDto.UserTypes = BindUserType();
+            return View(registrationDto);
         }
         [HttpPost]
         public async Task<IActionResult> Registration(RegistrationDto model)
         {
             if (ModelState.IsValid)
-            {             
-                model.UserType = UserTypeEnum.JobSeeker;
+            {   
                 var result = await _repository.CreateNewUser(model);
                 ViewBag.Message = result.Result;
                 ModelState.Clear();
-            }
-            return View();
+            }           
+            model.UserTypes = BindUserType();
+            return View(model);
         }
         [HttpGet]
         public IActionResult Login()
@@ -86,6 +88,14 @@ namespace JobSeeker.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+        public List<UserType> BindUserType()
+        {
+            List<UserType> users = new List<UserType>();
+            users.Add(new UserType() { Id = 1, Type = "Admin" });
+            users.Add(new UserType() { Id = 2, Type = "JobSeeker" });
+            users.Add(new UserType() { Id = 3, Type = "Company" });
+            return users;
         }
     }
 }

@@ -9,7 +9,7 @@
 
 <div class="row">
     <div class="col-md-8">
-        @if (@ViewBag.Message!=null)
+        @if (@ViewBag.Message != null)
         {
             if (@ViewBag.Message == ResultStatus.Success)
             {
@@ -26,6 +26,15 @@
         }
         <form asp-action="Registration">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                @foreach (var type in Model.UserTypes)
+                {
+                    <input asp-for="UserType" value="@type.Type" type="radio" />
+                    <label asp-for="@type.Id" class="control-label">@type.Type</label>
+                    <input asp-for="@type.Id" type="hidden" />
+                    <span asp-validation-for="UserType" class="text-danger"></span>
+                }
+            </div>
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
                 <input asp-for="Name" class="form-control" />
@@ -51,7 +60,7 @@
             <div class="form-group divpaddingregister">
                 <input type="submit" value="Register" class="btn btn-success" />
             </div>
-           
+
         </form>
     </div>
 </div>
