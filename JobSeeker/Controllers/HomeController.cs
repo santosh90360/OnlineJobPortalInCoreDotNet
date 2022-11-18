@@ -53,11 +53,7 @@ namespace JobSeeker.Controllers
         {
             var user =await _repository.Login(registrationDto);
             if (user != null &&  user.Id > 0)
-            {
-                HttpContext.Session.SetString("Email", user.Email);
-                HttpContext.Session.SetString("Name", user.Name);
-                HttpContext.Session.SetInt32("UserId", Convert.ToInt32(user.Id));
-
+            {               
                 if (user.ProfileImage != null)
                 {
                     HttpContext.Session.SetString("ProfileImage", user.ProfileImage);
@@ -82,9 +78,11 @@ namespace JobSeeker.Controllers
                 {
                     var principal = new ClaimsPrincipal(identity);
 
-                    var login = HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
+                    var login = HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);                   
+                    HttpContext.Session.SetString("Email", user.Email);
+                    HttpContext.Session.SetString("Name", user.Name);
+                    HttpContext.Session.SetInt32("UserId", Convert.ToInt32(user.Id));
 
-                    //return RedirectToAction("Index", "Home");
                 }
 
                 if (user.UserType ==UserTypeEnum.Admin)

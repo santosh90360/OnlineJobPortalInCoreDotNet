@@ -276,9 +276,15 @@ namespace JobSeeker.Controllers
             ViewBag.Message = registrationDto.Result;
             return View(registrationDto);
         }
+        public async Task<IActionResult> AccessDenied()
+        {
+            return View();
+        }
         private async Task<bool> JobDtoExists(int id)
         {
             return await _jobRepository.CheckJob(id);
         }
+
+
     }
 }
